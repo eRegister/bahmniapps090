@@ -15,7 +15,7 @@ defaults:
 jobs:
   build:
 
-    runs-on: Ubuntu-18.04
+    runs-on: Ubuntu-latest
 
 
     steps:
