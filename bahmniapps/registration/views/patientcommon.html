@@ -130,8 +130,8 @@
                             <select id="identifierPrefix" ng-model="identifier.selectedIdentifierSource" ng-options="identifierSource.prefix for identifierSource in ::identifier.identifierType.identifierSources" ng-change="patient.generateIdentifier(identifier)" required>
                             </select>
                         </div>
-                        <div class="field-value" ng-if="!identifier.hasIdentifierSources()">
-                            <input type="text" id="registrationNumber" ng-model="identifier.registrationNumber" non-blank="identifier.isIdentifierRequired()" pattern-validate ng-change="identifier.generate()" focus-on="identifier.hasOldIdentifier" ng-show="identifier.hasOldIdentifier || !identifier.hasIdentifierSources()" ng-disabled="readOnlyExtraIdentifiers.indexOf(identifier.identifierType.name)>-1">
+                        <div class="field-value" ng-if="!identifier.">
+                            <input type="text" id="registrationNumber" ng-model="identifier.registrationNumber" non-blank="identifier.isIdentifierRequired()" pattern-validate ng-change="identifier.generate()" focus-on="identifier.hasOldIdentifier" ng-show="identifier.hasOldIdentifier || !identifier." ng-disabled="readOnlyExtraIdentifiers.indexOf(identifier.identifierType.name)>-1">
                         </div>
 
                         <div class="field-value field-value-has-identifier" ng-show="::identifier.hasIdentifierSources()">
