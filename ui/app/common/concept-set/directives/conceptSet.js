@@ -261,6 +261,62 @@ angular.module('bahmni.common.conceptSet')
                         var obsValue;
                         var clonedObsInSameGroup;
                         var conceptNaming;
+                        
+                        flattenedObs.forEach(function (obs) {
+                            fields.forEach(function (autofillfield) {
+
+                                if(obs.concept.name == autofillfield.field && autofillfield.fieldValue && (obs.concept.dataType == "Numeric" || obs.concept.dataType == "Date" || obs.concept.dataType == "Text")){
+                                    observationsService.fetch($scope.patient.uuid, obs.concept.name).then(function (response) {
+                                        if(!_.isEmpty(response.data)){
+                                           obs.value = response.data[0].value;
+                                        }
+                                    });
+                                }
+                                if(obs.concept.name == autofillfield.field && obs.concept.dataType == "Coded" && autofillfield.fieldValue){
+                                    let Answer = {};
+                                    observationsService.fetch($scope.patient.uuid, obs.concept.name).then(function (response) {
+                                        if(!_.isEmpty(response.possibleAnswers)){
+                                        obs.possibleAnswers.forEach(function (answer){
+                                            if(answer.displayString == response.data[0].value.name){
+                                                Answer = answer;
+                                            }
+                                        });
+                                    }
+                                        obs.value = Answer;
+                                    });
+                                }
+                        })
+                        });
+
+
+                        flattenedObs.forEach(function (obs) {
+                            fields.forEach(function (autofillfield) {
+                                
+                            if(obs.concept.name == autofillfield.field && autofillfield.fieldValue && (obs.concept.dataType == "Numeric" || obs.concept.dataType == "Date" || obs.concept.dataType =="Text")){
+                                observationsService.fetch($scope.patient.uuid, obs.concept.name).then(function (response) {
+                                    if(!_.isEmpty(response.data)){
+                                        obs.value = response.data[0].value;
+                                     }
+                                });
+                            }
+                            if(obs.concept.name == autofillfield.field && obs.concept.dataType == "Coded" && autofillfield.fieldValue){
+                                let Answer = {};
+                                observationsService.fetch($scope.patient.uuid, obs.concept.name).then(function (response) {
+                                    if(!_.isEmpty(response.possibleAnswers)){
+                                        obs.possibleAnswers.forEach(function (answer){
+                                            if(answer.displayString == response.data[0].value.name){
+                                                Answer = answer;
+                                            }
+                                        });
+                                    
+                                     obs.value = Answer;
+                                    }
+                                });
+                            }
+                        })
+                        });
+//-----------------------------------------------------------------------------------
+
                         flattenedObs.forEach(function (obs) {
                             if (clonedObsInSameGroup != false && (obs.concept.name == field || (field.field && obs.concept.name == field.field))) {
                                 matchingObsArray.push(obs);
