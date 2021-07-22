@@ -232,4 +232,22 @@ angular.module('bahmni.common.appFramework')
                 });
                 return appLoader.promise;
             };
+
+            //**Setting a check field for autopopulations on forms */
+            let isFormSaved = false;
+            let savedFormName = '';
+            this.setSavedFormCheck = function (_isFormSaved ){
+                isFormSaved = _isFormSaved;
+            }
+            this.getSavedFormCheck   = function()
+            {
+                return isFormSaved;
+            }
+            this.setFormName   = function (_savedFormName ){
+                savedFormName  = _savedFormName ;
+            }
+            this.getFormName   = function()
+            {
+                return savedFormName ;
+            }
         }]);
