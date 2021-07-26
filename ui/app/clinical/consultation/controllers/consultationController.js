@@ -489,6 +489,10 @@ angular.module('bahmni.clinical').controller('ConsultationController',
             };
 
             $scope.save = function (toStateConfig) {
+
+               
+
+
                 if (!isFormValid()) {
                     $scope.$parent.$parent.$broadcast("event:errorsOnForm");
                     return $q.when({});
@@ -511,6 +515,10 @@ angular.module('bahmni.clinical').controller('ConsultationController',
                         }).then(function (savedConsultation) {
                             return spinner.forPromise(diagnosisService.populateDiagnosisInformation($scope.patient.uuid, savedConsultation)
                                                           .then(function (consultationWithDiagnosis) {
+
+                                                               //setting a save check flag to be used in autofill
+                                                              appService.setSavedFormCheck(true); 
+                                                              
                                                               return saveConditions().then(function (savedConditions) {
                                                                   consultationWithDiagnosis.conditions = savedConditions;
                                                                   messagingService.showMessage('info', "{{'CLINICAL_SAVE_SUCCESS_MESSAGE_KEY' | translate}}");
